@@ -1,15 +1,15 @@
 const express = require("express");
 const multer = require("multer");
+const OpenAI = require("openai");
 const { Configuration, OpenAIApi } = require("openai");
 const fs = require("fs");
-
 const app = express();
 const upload = multer({ dest: "uploads/" });
 const port = process.env.PORT || 3000;
 
-const openai = new OpenAIApi(
-  new Configuration({ apiKey: process.env.OPENAI_API_KEY })
-);
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY 
+});
 
 app.post("/analyze", upload.single("contract"), async (req, res) => {
   const filePath = req.file.path;
